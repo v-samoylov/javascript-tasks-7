@@ -14,7 +14,6 @@ exports.init = function () {
         var objKeys = Object.keys(this);
         for (var i = 0; i < objKeys.length; i++) {
             if (keys.indexOf(objKeys[i]) === -1) {
-                console.log(objKeys[i]);
                 return false;
             }
         }
@@ -50,8 +49,12 @@ exports.init = function () {
         return true;
     };
 
-    Array.prototype.checkHasValueType = function (key, type) {
+    Object.prototype.checkHasValueType = function (key, type) {
         return this[key].constructor === type;
+    };
+
+    Array.prototype.checkHasLength = function (length) {
+        return this.length === length;
     };
 
     String.prototype.checkHasLength = function (length) {
