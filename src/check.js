@@ -12,12 +12,15 @@ exports.init = function () {
 
     Object.prototype.checkHasKeys = function (keys) {
         var objKeys = Object.keys(this);
-        for (var i = 0; i < objKeys.length; i++) {
-            if (keys.indexOf(objKeys[i]) === -1) {
+        var objKeysNumber = objKeys.length;
+        for (var i = 0; i < objKeysNumber; i++) {
+            var keyIndex = keys.indexOf(objKeys[i]);
+            if (keyIndex === -1) {
                 return false;
             }
+            keys.splice(keyIndex, 1);
         }
-        return true;
+        return keys.length === 0 ? true : false;
     };
 
     Object.prototype.checkContainsValues = function (values) {
@@ -42,15 +45,17 @@ exports.init = function () {
         var objKeys = Object.keys(this);
         for (var i = 0; i < objKeys.length; i++) {
             var key = objKeys[i];
-            if (values.indexOf(this[key]) === -1) {
+            var valueIndex = values.indexOf(this[key]);
+            if (valueIndex === -1) {
                 return false;
             }
+            values.splice(valueIndex, 1);
         }
-        return true;
+        return values.length === 0 ? true : false;
     };
 
     Object.prototype.checkHasValueType = function (key, type) {
-        return this[key].constructor === type;
+        return this[key] !== undefined ? this[key].constructor === type : false;
     };
 
     Array.prototype.checkHasLength = function (length) {
